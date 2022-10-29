@@ -15,29 +15,43 @@ const heros = require("../../assets/constants/superheros.json");
 export default function MovieDetailsWrapper(props:IMovieDetailsWrapperProps){
     const {responseData, loading, fetch, error} = useFetcher<any>("http://www.omdbapi.com/", REQUEST_TYPES.GET,{
         apiKey:"1ddfd783",
-        s:props.superhero?props.superhero:heros[Math.floor(Math.random()*10)],
-        // page: Math.ceil(Math.random()*100),
+        s:props.superhero?props.superhero:heros[Math.floor(Math.random()*7)],
+        type:'movie'
     })
+    const {responseData:details, loading: loadingDetails, fetch:fetchDetails, updateQueryParams: updateDetailsQueryParams} = useFetcher<any>("http://www.omdbapi.com/", REQUEST_TYPES.GET)
     const [recommendedMovie, setRecommendedMovie] = useState<any>();
+    const getDetails =()=>{
+      updateDetailsQueryParams({
+        apiKey:"1ddfd783",
+        i: recommendedMovie.imdbID,
+      });
+      fetchDetails();
+    }
     useEffect(()=>{
       fetch();
     },[])
     useEffect(()=>{
-      responseData?setRecommendedMovie(responseData.Search.filter((item:any)=>item.Type=="movie")[Math.round(Math.random()*10)]):""
+      responseData?setRecommendedMovie(responseData.Search[Math.floor(Math.random()*10)]):""
       
     },[responseData])
     useEffect(()=>{
-      console.log("SSSS",recommendedMovie);      
+      recommendedMovie?getDetails():"";
+
     },[recommendedMovie])
 
     return (
-      <ScrollView style={styles.mainContainer}>
-            {loading?<ActivityIndicator style={[styles.poster]} size={"large"} color={COLORS.flame}/> : <><Image style={[styles.poster]} source={recommendedMovie?.Poster&&recommendedMovie?.Poster!="N/A"?{uri:recommendedMovie?.Poster}:emptyImage} resizeMode={"contain"}/>
-            <View style={[styles.titleWrapper]}>
-              <Text style={[styles.title]}>
-                {recommendedMovie?.Title}
-              </Text>
-            </View></>}
-        </ScrollView>
+      <SafeAreaView>
+        <ScrollView style={styles.mainContainer}>
+              {loading?<ActivityIndicator style={[styles.poster]} size={"large"} color={COLORS.flame}/> : <><Image style={[styles.poster]} source={recommendedMovie?.Poster&&recommendedMovie?.Poster!="N/A"?{uri:recommendedMovie?.Poster}:emptyImage} resizeMode={"contain"}/>
+              <View style={[styles.titleWrapper]}>
+                <Text style={[styles.title]}>
+                  {recommendedMovie?.Title}
+                </Text>
+                <Text style={[styles.plot]}>
+                  {details?.Plot}
+                </Text>
+              </View></>}
+          </ScrollView>
+        </SafeAreaView>
     )
 }

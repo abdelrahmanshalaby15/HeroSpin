@@ -18,7 +18,8 @@ export function useFetcher<ReturnType>(endPoint:string, requestType:REQUEST_TYPE
         return ""
     }
     const updateQueryParams = (newQueryParams: typeof _queryParams)=>{
-        setQueryParams(newQueryParams)
+        setQueryParams(newQueryParams);
+        fetch();
     }
     const fetch = ()=>{
         console.log("SS-1")

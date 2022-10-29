@@ -1,7 +1,5 @@
 import React from "react";
-import { SafeAreaView, Text } from "react-native";
-import HomeWrapper from "../../containers/Home";
-import MovieDetailsWrapper from "../../containers/movieDetails";
+import HeroSelectorWrapper from "../../containers/HeroSelector";
 
 interface IHeroSelectorScreenProps{
     navigation:any

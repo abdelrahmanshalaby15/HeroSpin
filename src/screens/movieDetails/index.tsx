@@ -4,12 +4,12 @@ import HomeWrapper from "../../containers/Home";
 import MovieDetailsWrapper from "../../containers/movieDetails";
 
 interface IHomeScreenProps{
-
+    navigation:any,
+    route:any,
 }
 
 export default function MovieDetails(props:IHomeScreenProps){
-
     return (
-        <MovieDetailsWrapper/>
+        <MovieDetailsWrapper superhero={props.route?.params?.superhero}/>
     )   
 }

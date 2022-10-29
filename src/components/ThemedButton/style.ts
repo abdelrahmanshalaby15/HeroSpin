@@ -6,7 +6,7 @@ export const styles = EStyleSheet.create({
         backgroundColor: COLORS.flame,
         padding: "1rem",
         borderRadius:"2rem",
-        margin:100,
+        marginVertical:"1rem",
         justifyContent:"center",
         alignItems:"center",
 

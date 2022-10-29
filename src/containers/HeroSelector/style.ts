@@ -8,15 +8,26 @@ export const styles = EStyleSheet.create({
         height:"100%",
         flexDirection:"column"
     },
-    poster:{
-        width:"100%",
-        height:500,
-
+    heroCard:{
+        backgroundColor: COLORS.white,
+        flex:1/2,
+        margin:"1rem",
+        alignItems:"center",
+        borderRadius:"1rem",
     },
-    title:{
-        color:COLORS.flame,
-        fontSize:"1.5rem",
+    cardImage:{
+        width:"100%",
+        aspectRatio:1,
+        resizeMode:"cover",
+        borderTopLeftRadius:"1rem",
+        borderTopRightRadius:"1rem",
+    },
+    heroName:{
+        textSize:"3rem",
         fontWeight:"bold",
-        padding:"1rem",
+        color:COLORS.dark_grey,
+        margin:"1rem",
+
     }
+
 })

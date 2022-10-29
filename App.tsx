@@ -31,6 +31,8 @@ import {
 import HomeScreen from './src/screens/home';
 import EStyleSheet from "react-native-extended-stylesheet";
 import MovieDetailsWrapper from './src/containers/movieDetails';
+import MovieDetails from './src/screens/movieDetails';
+import HeroSelectorScreen from './src/screens/heroSelector';
 
 
 const App = () => {
@@ -43,12 +45,13 @@ const App = () => {
 
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name='Home' component={HomeScreen}/>
-        <Stack.Screen name='Movie Details' component={MovieDetailsWrapper}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name='Home' options={{headerShown:false}} component={HomeScreen}/>
+          <Stack.Screen name='Movie Details' component={MovieDetails}/>
+          <Stack.Screen name='Heros' component={HeroSelectorScreen}/>
+        </Stack.Navigator>
+      </NavigationContainer>
   );
 };
 
