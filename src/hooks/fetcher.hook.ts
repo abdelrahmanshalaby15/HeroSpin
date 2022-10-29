@@ -11,9 +11,9 @@ export function useFetcher<ReturnType>(endPoint:string, requestType:REQUEST_TYPE
     const [responseData, setResponseData] = useState<ReturnType>();
     const [error, setError] = useState<any>();
     const [queryParams, setQueryParams] = useState<typeof _queryParams>(_queryParams);
-    const parseQueryParams = ()=>{
+    const parseQueryParams = (newParams: typeof _queryParams = {})=>{
         if(queryParams){
-            return Object.keys(queryParams).map((key:string)=>(`${key}=${queryParams[key]}`)).join("&");
+            return Object.keys({...queryParams, ...newParams}).map((key:string)=>(`${key}=${queryParams[key]}`)).join("&");
         }
         return ""
     }
@@ -21,11 +21,12 @@ export function useFetcher<ReturnType>(endPoint:string, requestType:REQUEST_TYPE
         setQueryParams(newQueryParams);
         fetch();
     }
-    const fetch = ()=>{
-        console.log("SS-1")
+    const fetch = (newParams:typeof _queryParams={})=>{
+        Object.keys(newParams).length>0?setQueryParams(newParams):"";
+        console.log("zz", newParams);
         axios({
             method: requestType,
-            url: `${endPoint}?${parseQueryParams()}`,
+            url: `${endPoint}?${parseQueryParams(newParams)}`,
             data:requestBody
         }).then((response:any)=>{
             console.log("SS", response)

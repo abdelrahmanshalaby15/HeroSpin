@@ -20,24 +20,22 @@ export default function MovieDetailsWrapper(props:IMovieDetailsWrapperProps){
     })
     const {responseData:details, loading: loadingDetails, fetch:fetchDetails, updateQueryParams: updateDetailsQueryParams} = useFetcher<any>("http://www.omdbapi.com/", REQUEST_TYPES.GET)
     const [recommendedMovie, setRecommendedMovie] = useState<any>();
-    const getDetails =()=>{
-      updateDetailsQueryParams({
-        apiKey:"1ddfd783",
-        i: recommendedMovie.imdbID,
-      });
-      fetchDetails();
-    }
+   
     useEffect(()=>{
       fetch();
     },[])
     useEffect(()=>{
+      if(responseData){
+        const _recommendedMovie = responseData.Search[Math.floor(Math.random()*10)];
+        setRecommendedMovie(_recommendedMovie);
+        fetchDetails({
+          apiKey:"1ddfd783",
+          i: _recommendedMovie.imdbID,
+        });
+      }
       responseData?setRecommendedMovie(responseData.Search[Math.floor(Math.random()*10)]):""
       
     },[responseData])
-    useEffect(()=>{
-      recommendedMovie?getDetails():"";
-
-    },[recommendedMovie])
 
     return (
       <SafeAreaView>
@@ -47,9 +45,13 @@ export default function MovieDetailsWrapper(props:IMovieDetailsWrapperProps){
                 <Text style={[styles.title]}>
                   {recommendedMovie?.Title}
                 </Text>
+                {/* <Text style={[styles.plot]}>
+                  {details?.Title}
+                </Text>
                 <Text style={[styles.plot]}>
                   {details?.Plot}
-                </Text>
+                </Text> */}
+                <PrimaryButton title="Another Movie" onPress={()=>fetch()}/>
               </View></>}
           </ScrollView>
         </SafeAreaView>
