@@ -45,12 +45,6 @@ export default function MovieDetailsWrapper(props:IMovieDetailsWrapperProps){
                 <Text style={[styles.title]}>
                   {recommendedMovie?.Title}
                 </Text>
-                {/* <Text style={[styles.plot]}>
-                  {details?.Title}
-                </Text>
-                <Text style={[styles.plot]}>
-                  {details?.Plot}
-                </Text> */}
                 <PrimaryButton title="Another Movie" onPress={()=>fetch()}/>
               </View></>}
           </ScrollView>
