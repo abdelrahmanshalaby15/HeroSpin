@@ -23,17 +23,14 @@ export function useFetcher<ReturnType>(endPoint:string, requestType:REQUEST_TYPE
     }
     const fetch = (newParams:typeof _queryParams={})=>{
         Object.keys(newParams).length>0?setQueryParams(newParams):"";
-        console.log("zz", newParams);
         axios({
             method: requestType,
             url: `${endPoint}?${parseQueryParams(newParams)}`,
             data:requestBody
         }).then((response:any)=>{
-            console.log("SS", response)
             setResponseData(response.data);
             setLoading(false);
         }).catch((err:any)=>{
-            console.log("SS-2", err.response)
             setError(err)
         });
     }
